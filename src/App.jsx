@@ -13,9 +13,31 @@ function App() {
       return;
     }
 
-    setTasks([...tasks, taskText]);
-    setTaskText("")
+    const newTask = {
+      id: Date.now(),
+      text: taskText.trim(),
+      completed: false
+    };
+
+    setTasks([...tasks, newTask]);
+    setTaskText("");
   }
+
+  function handleToggleTask(id) {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            completed: !task.completed
+          };
+        }
+        return task;
+      })
+    );
+  }
+
+  const completedTasks = tasks.filter((task) => task.completed).length;
 
   return (
     <div className='app'> 
@@ -28,12 +50,12 @@ function App() {
         <section className='stats'>
           <div className='stat-card'>
             <p>Total Tasks</p>
-            <h3>0</h3>
+            <h3>{tasks.length}</h3>
           </div>
 
           <div className='stat-card'>
             <p>Completed</p>
-            <h3>0</h3>
+            <h3>{completedTasks}</h3>
           </div>
         </section>
 
@@ -48,8 +70,16 @@ function App() {
 
           <ul className="task-list">
             {
-              tasks.map((task, index) => (
-              <li key={index}>{task}</li>))
+              tasks.map((task) => (
+                <li key={task.id}>
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => handleToggleTask(task.id)}
+                  />
+              {task.text}
+                </li>
+              ))
             }
           </ul>
 
