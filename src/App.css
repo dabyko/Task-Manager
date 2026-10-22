@@ -93,3 +93,19 @@
 .task-form button:hover {
   background-color: #bef264;
 }
+
+.task-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.task-list li {
+  padding: 16px;
+  background-color: #1b1e26;
+  border: 1px solid #2b2f3a;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}

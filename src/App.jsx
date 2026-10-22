@@ -1,7 +1,22 @@
+import { useState } from 'react';
 import './App.css'
 
 
 function App() {
+
+  const [taskText, setTaskText] = useState("");
+  const [tasks, setTasks] = useState([]);
+  
+  function handleAddTask() {
+
+    if (taskText.trim() === "") {
+      return;
+    }
+
+    setTasks([...tasks, taskText]);
+    setTaskText("")
+  }
+
   return (
     <div className='app'> 
       <header className='header'>
@@ -26,10 +41,18 @@ function App() {
           <h2>My Tasks</h2>
           <p>Manage your daily tasks</p>
 
-          <form className='task-form' action="">
-            <input type="text" placeholder='What needs to be done?'/>
+          <form className='task-form' onSubmit={(event)=>{event.preventDefault(); handleAddTask();}}>
+            <input type="text" placeholder='What needs to be done?'  value={taskText}  onChange={(event)=> setTaskText(event.target.value)}/>
             <button type='submit'>Add Task</button>
           </form>
+
+          <ul className="task-list">
+            {
+              tasks.map((task, index) => (
+              <li key={index}>{task}</li>))
+            }
+          </ul>
+
         </section>
       </main>
     </div>
