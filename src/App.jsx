@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css'
+import TaskItem from './TaskItem';
 
 
 function App() {
@@ -69,21 +70,13 @@ function App() {
           </form>
 
           <ul className="task-list">
-            {
-              tasks.map((task) => (
-                <li key={task.id}>
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => handleToggleTask(task.id)}
-                  />
-
-                  <span className={task.completed ? "completed" : ""}>
-                    {task.text}
-                  </span>
-                </li>
-              ))
-            }
+            {tasks.map((task) => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                onToggle={handleToggleTask}
+              />
+            ))}
           </ul>
 
         </section>
