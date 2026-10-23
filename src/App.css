@@ -109,3 +109,8 @@
   border-radius: 8px;
   overflow-wrap: anywhere;
 }
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}

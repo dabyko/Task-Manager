@@ -77,7 +77,10 @@ function App() {
                     checked={task.completed}
                     onChange={() => handleToggleTask(task.id)}
                   />
-              {task.text}
+
+                  <span className={task.completed ? "completed" : ""}>
+                    {task.text}
+                  </span>
                 </li>
               ))
             }
