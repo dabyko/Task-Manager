@@ -42,6 +42,16 @@ function App() {
      setTasks(tasks.filter((task) => task.id !== id));
   }
 
+  function handleUpdateTask(id, newText) {
+    setTasks(
+    tasks.map((task) =>
+      task.id === id
+        ? { ...task, text: newText }
+        : task
+    )
+    );
+  }
+
   const completedTasks = tasks.filter((task) => task.completed).length;
 
   return (
@@ -74,12 +84,14 @@ function App() {
           </form>
 
           <ul className="task-list">
-            {tasks.map((task) => (
+            {
+              tasks.map((task) => (
               <TaskItem
                 key={task.id}
                 task={task}
                 onToggle={handleToggleTask}
                 onDelete={handleDeleteTask}
+                onUpdate={handleUpdateTask}
               />
             ))}
           </ul>
