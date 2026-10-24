@@ -38,6 +38,10 @@ function App() {
     );
   }
 
+  function handleDeleteTask(id) {
+     setTasks(tasks.filter((task) => task.id !== id));
+  }
+
   const completedTasks = tasks.filter((task) => task.completed).length;
 
   return (
@@ -75,6 +79,7 @@ function App() {
                 key={task.id}
                 task={task}
                 onToggle={handleToggleTask}
+                onDelete={handleDeleteTask}
               />
             ))}
           </ul>
