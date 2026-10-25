@@ -26,29 +26,41 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
                 </span>)
             }
 
-            <button onClick={() => setIsEditing(true)}>
-                Edit
+            {isEditing ? (
+            <>
+            <button
+                onClick={() => {
+                const text = editedText.trim();
+
+                if (text === "") return;
+
+                onUpdate(task.id, text);
+                setIsEditing(false);
+                }}
+                >
+                Save
             </button>
 
             <button
                 onClick={() => {
-                    const text = editedText.trim();
-
-                    if (text === "") {
-                    return;
-                    }
-
-                    onUpdate(task.id, text);
-                    setIsEditing(false);
-                    }}
-            >
-                Save
+                setEditedText(task.text);
+                setIsEditing(false);
+                }}
+                >
+                Cancel
+            </button>
+            </>
+            ) : (
+            <>
+            <button onClick={() => setIsEditing(true)}>
+                Edit
             </button>
 
             <button onClick={() => onDelete(task.id)}>
                 Delete
             </button>
-            
+            </>
+            )}       
         </li>
     );
 }
