@@ -20,31 +20,31 @@ function App() {
       completed: false
     };
 
-    setTasks([...tasks, newTask]);
+    setTasks((prevTasks) => [...prevTasks, newTask]);
     setTaskText("");
   }
 
   function handleToggleTask(id) {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === id) {
-          return {
-            ...task,
-            completed: !task.completed
-          };
-        }
-        return task;
+    setTasks((prevTasks) =>
+    prevTasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, completed: !task.completed };
+      }
+
+      return task;
       })
     );
   }
 
   function handleDeleteTask(id) {
-     setTasks(tasks.filter((task) => task.id !== id));
+      setTasks((prevTasks) =>
+      prevTasks.filter((task) => task.id !== id)
+    );
   }
 
   function handleUpdateTask(id, newText) {
-    setTasks(
-    tasks.map((task) =>
+    setTasks((prevTasks) =>
+    prevTasks.map((task) =>
       task.id === id
         ? { ...task, text: newText }
         : task
