@@ -4,8 +4,10 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState(task.text);
+    const [error, setError] = useState("");
 
     function handleCancel() {
+        setError("");
         setEditedText(task.text);
         setIsEditing(false);
     }
@@ -13,8 +15,12 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
     function handleSave() {
         const text = editedText.trim();
 
-        if (text === "") return;
-
+        if (text === ""){
+            setError("Task text cannot be empty");
+            return;
+        }
+        
+        setError("");
         onUpdate(task.id, text);
         setIsEditing(false);
     }
@@ -29,12 +35,20 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
 
             {
                 isEditing ? (
-                <input
-                    type="text"
-                    value={editedText}
-                    onChange={(event) => setEditedText(event.target.value)}
-                />
+                <>
+                    <input
+                        type="text"
+                        value={editedText}
+                        onChange={(event) => {
+                            setEditedText(event.target.value);
+                            setError("");
+                        }}
+                    />
+                 
+                    {error && <p className="error-message">{error}</p>}
+                </>
                 ) : (
+
                 <span className={task.completed ? "completed" : ""}>
                     {task.text}
                 </span>)
