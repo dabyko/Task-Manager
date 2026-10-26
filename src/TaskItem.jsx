@@ -5,6 +5,20 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState(task.text);
 
+    function handleCancel() {
+        setEditedText(task.text);
+        setIsEditing(false);
+    }
+
+    function handleSave() {
+        const text = editedText.trim();
+
+        if (text === "") return;
+
+        onUpdate(task.id, text);
+        setIsEditing(false);
+    }
+
     return (
         <li>
             <input
@@ -28,25 +42,11 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
 
             {isEditing ? (
             <>
-            <button
-                onClick={() => {
-                const text = editedText.trim();
-
-                if (text === "") return;
-
-                onUpdate(task.id, text);
-                setIsEditing(false);
-                }}
-                >
+            <button onClick={handleSave}>
                 Save
             </button>
 
-            <button
-                onClick={() => {
-                setEditedText(task.text);
-                setIsEditing(false);
-                }}
-                >
+            <button onClick={handleCancel}>
                 Cancel
             </button>
             </>
