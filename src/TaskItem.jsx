@@ -48,10 +48,18 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
                     {error && <p className="error-message">{error}</p>}
                 </>
                 ) : (
-
+                <>
                 <span className={task.completed ? "completed" : ""}>
                     {task.text}
-                </span>)
+                </span>
+
+                <span className={`task-difficulty ${task.difficulty.toLowerCase()}`}>
+                    {task.difficulty}
+                </span>
+                </>
+                )
+
+                
             }
 
             {isEditing ? (

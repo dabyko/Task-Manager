@@ -120,3 +120,37 @@
   font-size: 0.875rem;
   margin: 4px 0;
 }
+
+.task-difficulty {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    margin-left: 8px;
+}
+
+.task-difficulty.trivial {
+    background-color: #263f32;
+    color: #75e0a0;
+}
+
+.task-difficulty.easy {
+    background-color: #263b45;
+    color: #7dd3fc;
+}
+
+.task-difficulty.medium {
+    background-color: #453b22;
+    color: #facc15;
+}
+
+.task-difficulty.hard {
+    background-color: #482d25;
+    color: #fb923c;
+}
+
+.task-difficulty.critical {
+    background-color: #49272d;
+    color: #fca5a5;
+}

@@ -8,6 +8,7 @@ function App() {
   const [taskText, setTaskText] = useState("");
   const [tasks, setTasks] = useState([]);
   const taskInputRef = useRef(null);
+  const [taskDifficulty, setTaskDifficulty] = useState("Trivial");
   
   function handleAddTask() {
 
@@ -18,7 +19,8 @@ function App() {
     const newTask = {
       id: Date.now(),
       text: taskText.trim(),
-      completed: false
+      completed: false,
+      difficulty: taskDifficulty
     };
 
     setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -89,6 +91,18 @@ function App() {
             value={taskText} 
             onChange={(event)=> setTaskText(event.target.value)}
             />
+
+            <select
+              value={taskDifficulty}
+              onChange={(event) => setTaskDifficulty(event.target.value)}
+            >
+            <option value="Trivial">Trivial</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+            <option value="Critical">Critical</option>
+            </select>
+
 
             <button type='submit'>Add Task</button>
           </form>
