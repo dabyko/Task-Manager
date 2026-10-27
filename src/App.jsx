@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css'
 import TaskItem from './TaskItem';
 
@@ -7,6 +7,7 @@ function App() {
 
   const [taskText, setTaskText] = useState("");
   const [tasks, setTasks] = useState([]);
+  const taskInputRef = useRef(null);
   
   function handleAddTask() {
 
@@ -22,6 +23,7 @@ function App() {
 
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setTaskText("");
+    taskInputRef.current.focus();
   }
 
   function handleToggleTask(id) {
@@ -79,7 +81,15 @@ function App() {
           <p>Manage your daily tasks</p>
 
           <form className='task-form' onSubmit={(event)=>{event.preventDefault(); handleAddTask();}}>
-            <input type="text" placeholder='What needs to be done?'  value={taskText}  onChange={(event)=> setTaskText(event.target.value)}/>
+            
+            <input
+            ref={taskInputRef}
+            type="text" 
+            placeholder='What needs to be done?'  
+            value={taskText} 
+            onChange={(event)=> setTaskText(event.target.value)}
+            />
+
             <button type='submit'>Add Task</button>
           </form>
 
