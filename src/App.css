@@ -103,10 +103,13 @@
 }
 
 .task-list li {
-  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
   background-color: #1b1e26;
   border: 1px solid #2b2f3a;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow-wrap: anywhere;
 }
 
@@ -153,4 +156,62 @@
 .task-difficulty.critical {
     background-color: #49272d;
     color: #fca5a5;
+}
+
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.task-button {
+  padding: 9px 14px;
+  border: 1px solid #3a3e49;
+  border-radius: 7px;
+  background: transparent;
+  color: #d1d5db;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease,
+              color 0.2s ease;
+}
+
+.task-button:hover {
+  background-color: #292d37;
+  border-color: #606575;
+}
+
+.edit-button {
+  color: #e5e7eb;
+}
+
+.delete-button {
+  color: #fca5a5;
+  border-color: #63343c;
+}
+
+.delete-button:hover {
+  background-color: #49272d;
+  border-color: #a34b58;
+  color: #fecaca;
+}
+
+.save-button {
+  color: #bef264;
+  border-color: #526b2c;
+}
+
+.save-button:hover {
+  background-color: #29351e;
+  border-color: #84a83d;
+}
+
+.cancel-button {
+  color: #9ca3af;
 }

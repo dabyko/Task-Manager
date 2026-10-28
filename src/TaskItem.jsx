@@ -57,6 +57,10 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
                     <option value="Hard">Hard</option>
                     <option value="Critical">Critical</option>
                     </select>
+
+                    <span className={`task-difficulty ${editedDifficulty.toLowerCase()}`}>
+                        {editedDifficulty}
+                    </span>
                  
                     {error && <p className="error-message">{error}</p>}
                 </>
@@ -76,25 +80,28 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
             }
 
             {isEditing ? (
-            <>
-            <button onClick={handleSave}>
-                Save
-            </button>
+            
+                <div className="task-actions">
+                    <button className="task-button save-button" onClick={handleSave}>
+                        Save
+                    </button>
 
-            <button onClick={handleCancel}>
-                Cancel
-            </button>
-            </>
+                    <button className="task-button cancel-button" onClick={handleCancel}>
+                        Cancel
+                    </button>
+                </div>
+            
             ) : (
-            <>
-            <button onClick={() => setIsEditing(true)}>
-                Edit
-            </button>
+            
+                <div className="task-actions">
+                    <button className="task-button edit-button" onClick={() => setIsEditing(true)}>
+                        Edit
+                    </button>
 
-            <button onClick={() => onDelete(task.id)}>
-                Delete
-            </button>
-            </>
+                    <button className="task-button delete-button" onClick={() => onDelete(task.id)}>
+                        Delete
+                    </button>
+                </div>
             )}       
         </li>
     );
