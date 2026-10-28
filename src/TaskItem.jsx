@@ -10,6 +10,7 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
     function handleCancel() {
         setError("");
         setEditedText(task.text);
+        setEditedDifficulty(task.difficulty);
         setIsEditing(false);
     }
 
