@@ -46,13 +46,17 @@ function App() {
     );
   }
 
-  function handleUpdateTask(id, newText) {
+  function handleUpdateTask(id, newText, newDifficulty) {
     setTasks((prevTasks) =>
-    prevTasks.map((task) =>
-      task.id === id
-        ? { ...task, text: newText }
-        : task
-    )
+      prevTasks.map((task) =>
+        task.id === id
+          ? { 
+            ...task, 
+            text: newText,
+            difficulty: newDifficulty
+          }
+          : task
+        )
     );
   }
 
@@ -102,7 +106,6 @@ function App() {
             <option value="Hard">Hard</option>
             <option value="Critical">Critical</option>
             </select>
-
 
             <button type='submit'>Add Task</button>
           </form>

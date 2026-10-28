@@ -4,6 +4,7 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState(task.text);
+    const [editedDifficulty, setEditedDifficulty] = useState(task.difficulty);
     const [error, setError] = useState("");
 
     function handleCancel() {
@@ -21,7 +22,7 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
         }
         
         setError("");
-        onUpdate(task.id, text);
+        onUpdate(task.id, text, editedDifficulty);
         setIsEditing(false);
     }
 
@@ -44,6 +45,17 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
                             setError("");
                         }}
                     />
+
+                    <select
+                        value={editedDifficulty}
+                        onChange={(event) => setEditedDifficulty(event.target.value)}
+                    >
+                    <option value="Trivial">Trivial</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                    <option value="Critical">Critical</option>
+                    </select>
                  
                     {error && <p className="error-message">{error}</p>}
                 </>
