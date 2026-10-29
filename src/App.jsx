@@ -14,6 +14,7 @@ function App() {
     { id: 2, name: "Work" },
     { id: 3, name: "Sport" }
   ]);
+  const [taskComment, setTaskComment] = useState("");
 
   const [taskTag, setTaskTag] = useState(1);
   
@@ -28,11 +29,14 @@ function App() {
       text: taskText.trim(),
       completed: false,
       difficulty: taskDifficulty,
-      tagId: taskTag
+      tagId: taskTag,
+      comment: taskComment.trim()
     };
 
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setTaskText("");
+    setTaskComment("");
+
     taskInputRef.current.focus();
   }
 
@@ -54,7 +58,7 @@ function App() {
     );
   }
 
-  function handleUpdateTask(id, newText, newDifficulty, newTagId) {
+  function handleUpdateTask(id, newText, newDifficulty, newTagId, newComment) {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === id
@@ -62,7 +66,8 @@ function App() {
             ...task, 
             text: newText,
             difficulty: newDifficulty,
-            tagId: newTagId
+            tagId: newTagId,
+            comment: newComment
           }
           : task
         )
@@ -98,11 +103,18 @@ function App() {
           <form className='task-form' onSubmit={(event)=>{event.preventDefault(); handleAddTask();}}>
             
             <input
-            ref={taskInputRef}
-            type="text" 
-            placeholder='What needs to be done?'  
-            value={taskText} 
-            onChange={(event)=> setTaskText(event.target.value)}
+              ref={taskInputRef}
+              type="text" 
+              placeholder='What needs to be done?'  
+              value={taskText} 
+              onChange={(event)=> setTaskText(event.target.value)}
+            />
+            
+            <input
+              type="text"
+              value={taskComment}
+              onChange={(event) => setTaskComment(event.target.value)}
+              placeholder="Add a comment (optional)"
             />
 
             <select

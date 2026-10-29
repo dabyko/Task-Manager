@@ -7,6 +7,7 @@ function TaskItem({task, tags, onToggle, onDelete, onUpdate}) {
     const [editedDifficulty, setEditedDifficulty] = useState(task.difficulty);
     const [error, setError] = useState("");
     const [editedTagId, setEditedTagId] = useState(task.tagId);
+    const [editedComment, setEditedComment] = useState(task.comment || "");
 
     function handleCancel() {
         setError("");
@@ -25,7 +26,7 @@ function TaskItem({task, tags, onToggle, onDelete, onUpdate}) {
         }
         
         setError("");
-        onUpdate(task.id, text, editedDifficulty, editedTagId);
+        onUpdate(task.id, text, editedDifficulty, editedTagId,  editedComment.trim());
         setIsEditing(false);
     }
 
@@ -49,6 +50,13 @@ function TaskItem({task, tags, onToggle, onDelete, onUpdate}) {
                             setEditedText(event.target.value);
                             setError("");
                         }}
+                    />
+
+                    <input
+                        type="text"
+                        value={editedComment}
+                        onChange={(event) => setEditedComment(event.target.value)}
+                        placeholder="Add a comment (optional)"
                     />
 
                     <select
@@ -92,6 +100,12 @@ function TaskItem({task, tags, onToggle, onDelete, onUpdate}) {
                     {tag && (
                         <span className="task-tag">
                             {tag.name}
+                        </span>
+                    )}
+
+                    {task.comment && (
+                        <span className="task-comment">
+                        {task.comment}
                         </span>
                     )}
                 </>
