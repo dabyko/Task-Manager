@@ -215,3 +215,15 @@
 .cancel-button {
   color: #9ca3af;
 }
+
+.task-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border: 1px solid #3b5268;
+    border-radius: 6px;
+    background-color: #202d3a;
+    color: #a5c8ed;
+    margin-left: 8px;
+    white-space: nowrap;
+}

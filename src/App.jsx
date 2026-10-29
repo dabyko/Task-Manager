@@ -9,6 +9,13 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const taskInputRef = useRef(null);
   const [taskDifficulty, setTaskDifficulty] = useState("Trivial");
+  const [tags, setTags] = useState([
+    { id: 1, name: "Study" },
+    { id: 2, name: "Work" },
+    { id: 3, name: "Sport" }
+  ]);
+
+  const [taskTag, setTaskTag] = useState(1);
   
   function handleAddTask() {
 
@@ -20,7 +27,8 @@ function App() {
       id: Date.now(),
       text: taskText.trim(),
       completed: false,
-      difficulty: taskDifficulty
+      difficulty: taskDifficulty,
+      tagId: taskTag
     };
 
     setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -46,14 +54,15 @@ function App() {
     );
   }
 
-  function handleUpdateTask(id, newText, newDifficulty) {
+  function handleUpdateTask(id, newText, newDifficulty, newTagId) {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === id
           ? { 
             ...task, 
             text: newText,
-            difficulty: newDifficulty
+            difficulty: newDifficulty,
+            tagId: newTagId
           }
           : task
         )
@@ -107,6 +116,17 @@ function App() {
             <option value="Critical">Critical</option>
             </select>
 
+            <select
+              value={taskTag}
+              onChange={(event) => setTaskTag(Number(event.target.value))}
+            >
+              {tags.map((tag) => (
+                <option key={tag.id} value={tag.id}>
+                  {tag.name}
+                </option>
+              ))}
+            </select>
+
             <button type='submit'>Add Task</button>
           </form>
 
@@ -116,6 +136,7 @@ function App() {
               <TaskItem
                 key={task.id}
                 task={task}
+                tags={tags}
                 onToggle={handleToggleTask}
                 onDelete={handleDeleteTask}
                 onUpdate={handleUpdateTask}

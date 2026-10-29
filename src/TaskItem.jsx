@@ -1,16 +1,18 @@
 import { useState } from 'react';
 
-function TaskItem({task, onToggle, onDelete, onUpdate}) {
+function TaskItem({task, tags, onToggle, onDelete, onUpdate}) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState(task.text);
     const [editedDifficulty, setEditedDifficulty] = useState(task.difficulty);
     const [error, setError] = useState("");
+    const [editedTagId, setEditedTagId] = useState(task.tagId);
 
     function handleCancel() {
         setError("");
         setEditedText(task.text);
         setEditedDifficulty(task.difficulty);
+        setEditedTagId(task.tagId);
         setIsEditing(false);
     }
 
@@ -23,9 +25,11 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
         }
         
         setError("");
-        onUpdate(task.id, text, editedDifficulty);
+        onUpdate(task.id, text, editedDifficulty, editedTagId);
         setIsEditing(false);
     }
+
+    const tag = tags.find((tag) => tag.id === task.tagId);
 
     return (
         <li>
@@ -58,6 +62,17 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
                     <option value="Critical">Critical</option>
                     </select>
 
+                    <select
+                        value={editedTagId}
+                        onChange={(event) => setEditedTagId(Number(event.target.value))}
+                    >
+                        {tags.map((tag) => (
+                            <option key={tag.id} value={tag.id}>
+                            {tag.name}
+                            </option>
+                        ))}
+                    </select>
+
                     <span className={`task-difficulty ${editedDifficulty.toLowerCase()}`}>
                         {editedDifficulty}
                     </span>
@@ -66,13 +81,19 @@ function TaskItem({task, onToggle, onDelete, onUpdate}) {
                 </>
                 ) : (
                 <>
-                <span className={task.completed ? "completed" : ""}>
-                    {task.text}
-                </span>
+                    <span className={task.completed ? "completed" : ""}>
+                        {task.text}
+                    </span>
 
-                <span className={`task-difficulty ${task.difficulty.toLowerCase()}`}>
-                    {task.difficulty}
-                </span>
+                    <span className={`task-difficulty ${task.difficulty.toLowerCase()}`}>
+                        {task.difficulty}
+                    </span>
+
+                    {tag && (
+                        <span className="task-tag">
+                            {tag.name}
+                        </span>
+                    )}
                 </>
                 )
 
