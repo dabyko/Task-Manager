@@ -1,7 +1,11 @@
+// Import Express to create the router
 const express = require("express");
+// Create a separate router for task-related endpoints
 const router = express.Router();
+// Import the temporary tasks array from the data folder
 const tasks = require("../data/tasks");
 
+// Define the allowed difficulty levels for tasks
 const allowedDifficulties = [
     "Trivial",
     "Easy",
@@ -10,6 +14,7 @@ const allowedDifficulties = [
     "Critical"
 ];
 
+// POST / - Create a new task
 router.post("/", (req, res) => {
     const { title, difficulty } = req.body;
 
@@ -40,6 +45,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// PATCH /:id - Update the completion status of a specific task
 router.patch("/:id", (req, res) => {
     const taskId = Number(req.params.id);
 
@@ -67,10 +73,12 @@ router.patch("/:id", (req, res) => {
     });
 });
 
+// GET / - Retrieve all tasks
 router.get("/", (req, res) => {
     res.json(tasks);
 });
 
+// DELETE /:id - Delete a specific task
 router.delete("/:id", (req, res) => {
     const taskId = Number(req.params.id);
 
@@ -90,4 +98,5 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// Export the router so it can be used in server.js
 module.exports = router;
