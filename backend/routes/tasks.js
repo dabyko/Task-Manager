@@ -5,98 +5,15 @@ const router = express.Router();
 // Import the temporary tasks array from the data folder
 const tasks = require("../data/tasks");
 
-// Define the allowed difficulty levels for tasks
-const allowedDifficulties = [
-    "Trivial",
-    "Easy",
-    "Medium",
-    "Hard",
-    "Critical"
-];
+const { getAllTasks, createTask, updateTask,  deleteTask } = require("../controllers/taskController");
 
-// POST / - Create a new task
-router.post("/", (req, res) => {
-    const { title, difficulty } = req.body;
+router.get("/", getAllTasks);
 
-    if (typeof title !== "string" || title.trim() === "") {
-        return res.status(400).json({
-            error: "Task title must be a non-empty string"
-        });
-    }
+router.post("/", createTask);
 
-    if (!allowedDifficulties.includes(difficulty)) {
-        return res.status(400).json({
-            error: "Invalid task difficulty"
-        });
-    }
+router.patch("/:id", updateTask);
 
-    const newTask = {
-        id: Date.now(),
-        title: title.trim(),
-        difficulty,
-        completed: false
-    }; 
-
-    tasks.push(newTask);
-
-    res.status(201).json({
-        message: "Task created successfully",
-        task: newTask
-    });
-});
-
-// PATCH /:id - Update the completion status of a specific task
-router.patch("/:id", (req, res) => {
-    const taskId = Number(req.params.id);
-
-    const task = tasks.find(task => task.id === taskId);
-
-    if (!task) {
-        return res.status(404).json({
-            error: "Task not found"
-        });
-    }
-
-    const { completed } = req.body;
-
-    if (typeof completed !== "boolean") {
-        return res.status(400).json({
-            error: "Completed must be a boolean"
-        });
-    }
-
-    task.completed = completed;
-
-    res.json({
-        message: "Task updated successfully",
-        task
-    });
-});
-
-// GET / - Retrieve all tasks
-router.get("/", (req, res) => {
-    res.json(tasks);
-});
-
-// DELETE /:id - Delete a specific task
-router.delete("/:id", (req, res) => {
-    const taskId = Number(req.params.id);
-
-    const taskIndex = tasks.findIndex(task => task.id === taskId);
-
-    if (taskIndex === -1) {
-        return res.status(404).json({
-            error: "Task not found"
-        });
-    }
-
-    const deletedTask = tasks.splice(taskIndex, 1);
-
-    res.json({
-        message: "Task deleted successfully",
-        task: deletedTask[0]
-    });
-});
+router.delete("/:id", deleteTask);
 
 // Export the router so it can be used in server.js
 module.exports = router;
