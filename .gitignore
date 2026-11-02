@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Environment variables
+.env
+# AI development tools
+backend/.agents/
+backend/.claude/
+backend/.windsurf/
+backend/skills-lock.json
