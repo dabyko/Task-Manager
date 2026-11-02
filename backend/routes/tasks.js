@@ -2,8 +2,6 @@
 const express = require("express");
 // Create a separate router for task-related endpoints
 const router = express.Router();
-// Import the temporary tasks array from the data folder
-const tasks = require("../data/tasks");
 
 const { getAllTasks, createTask, updateTask,  deleteTask } = require("../controllers/taskController");
 
