@@ -11,3 +11,27 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Difficulty {
+  Trivial
+  Easy
+  Medium
+  Hard
+  Critical
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String
+  tasks Task[]
+}
+
+model Task {
+  id         Int        @id @default(autoincrement())
+  text       String
+  completed  Boolean    @default(false)
+  difficulty Difficulty
+  comment    String?
+  tagId      Int
+  tag        Tag        @relation(fields: [tagId], references: [id])
+}
